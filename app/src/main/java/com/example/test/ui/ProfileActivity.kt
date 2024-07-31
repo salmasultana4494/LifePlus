@@ -19,7 +19,7 @@ class ProfileActivity : AppCompatActivity() {
         val registrationData = intent.getParcelableExtra<RegistrationData>("USER_DATA")
         if (registrationData != null) {
             binding.userName.text = "Name: " + registrationData.name ?: "N/A"
-            binding.userId.text = "User Name" + registrationData.userName ?: "N/A"
+            binding.userId.text = "User Name: " + registrationData.userName ?: "N/A"
             binding.userPhoneNo.text = "Phone Number:" + registrationData.phoneNumber ?: "N/A"
         }
 
