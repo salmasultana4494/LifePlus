@@ -10,8 +10,8 @@ import kotlinx.coroutines.launch
 
 class RegistrationViewModel(private val userDao: AppDAO) : ViewModel() {
 
-    private val _registrationResult = MutableLiveData<Boolean>()
-    val registrationResult: LiveData<Boolean> get() = _registrationResult
+    private val _registrationResult = MutableLiveData<RegistrationData>()
+    val registrationResult: LiveData<RegistrationData> get() = _registrationResult
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
@@ -26,7 +26,7 @@ class RegistrationViewModel(private val userDao: AppDAO) : ViewModel() {
             )
             viewModelScope.launch {
                 userDao.insertDataRegistration(registrationData)
-                _registrationResult.value = true
+                _registrationResult.value = registrationData // Pass RegistrationData
             }
         }
     }
@@ -49,8 +49,8 @@ class RegistrationViewModel(private val userDao: AppDAO) : ViewModel() {
                 _errorMessage.value = "Phone number is required"
                 false
             }
-            !phoneNumber.matches("\\d{10}".toRegex()) -> {
-                _errorMessage.value = "Phone number must be 10 digits"
+            !phoneNumber.matches("\\d{11}".toRegex()) -> {
+                _errorMessage.value = "Phone number must be 11 digits"
                 false
             }
             else -> true

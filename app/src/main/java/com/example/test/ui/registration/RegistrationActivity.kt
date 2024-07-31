@@ -34,10 +34,11 @@ class RegistrationActivity : AppCompatActivity() {
             registrationViewModel.register(name, userName, password, phoneNumber)
         }
 
-        registrationViewModel.registrationResult.observe(this) { success ->
-            if (success) {
+        registrationViewModel.registrationResult.observe(this) { registrationData ->
+            registrationData?.let {
                 Toast.makeText(this, "Data inserted successfully", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, DashboardActivity::class.java)
+                intent.putExtra("USER_DATA", it) // Pass the RegistrationData object
                 startActivity(intent)
                 finish()
             }
